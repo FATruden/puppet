@@ -1,8 +1,8 @@
 class configs::resolv_conf {
-	if "dns_server" in $roles {
+	if dns_server in $roles {
 		$ns1 = "127.0.0.1"
 	}
-	
+
 	file{ "resolv.conf":
 		path	=> "/etc/resolv.conf",
 		ensure	=> present,
