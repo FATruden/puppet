@@ -1,3 +1,3 @@
 class packages {
-	include packages::install
+    include packages::base
 }

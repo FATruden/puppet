@@ -1,5 +1,6 @@
-class packages::install {
+class packages::base {
     package { [
+            yum-plugin-priorities,
             mtr,
             screen,
             strace,
