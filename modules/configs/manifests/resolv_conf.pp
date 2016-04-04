@@ -1,6 +1,6 @@
 class configs::resolv_conf {
 	if dns_server in $roles {
-		$ns1 = "127.0.0.1"
+		$ns1 = $ipaddress_lo
 	}
 
 	file{ "resolv.conf":

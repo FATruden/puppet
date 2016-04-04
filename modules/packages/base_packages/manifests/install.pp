@@ -5,6 +5,7 @@ class base_packages::install {
             strace,
             sysstat,
             tcpdump,
+            vim-enhanced,
             yum-plugin-priorities,
             ]: ensure => present,
     }
