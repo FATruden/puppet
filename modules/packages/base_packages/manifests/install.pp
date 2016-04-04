@@ -1,11 +1,11 @@
-class packages::base {
+class base_packages::install {
     package { [
-            yum-plugin-priorities,
             mtr,
             screen,
             strace,
             sysstat,
             tcpdump,
+            yum-plugin-priorities,
             ]: ensure => present,
     }
 }

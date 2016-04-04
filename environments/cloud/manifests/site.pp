@@ -14,9 +14,9 @@ $roles = hiera_array('roles', undef)
 
 class base {
     class {
-        repos:    stage => repos,;
-        configs:  stage => configs,;
-        packages: stage => packages,;
+        configs:       stage => configs,;
+        repos:         stage => repos,;
+        base_packages: stage => packages,;
     }
 }
 
