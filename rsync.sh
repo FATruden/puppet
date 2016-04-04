@@ -15,5 +15,5 @@ $RSYNC -zrvc    auth.conf \
                 hieradata \
                 manifests \
                 modules \
-                puppet.conf \
+                puppet.conf.example \
                 $USR_DST:/etc/puppet/

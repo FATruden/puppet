@@ -2,12 +2,12 @@
     logdir          = /var/log/puppet
     rundir          = /var/run/puppet
     ssldir          = $vardir/ssl
-    dns_alt_names   = adm.ruden.org,adm
+    dns_alt_names   = <server_fqdn>,<server_short_name>
     hiera_config    = /etc/puppet/hiera.yaml
     environmentpath = /etc/puppet/environments
 
 [agent]
     classfile       = $vardir/classes.txt
     localconfig     = $vardir/localconfig
-    server          = adm.ruden.local
+    server          = <server_fqdn>
     environment     = cloud
