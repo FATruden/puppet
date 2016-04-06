@@ -1,9 +1,9 @@
 class repos::epel {
 
-    yumrepo { "epel":
-        name              => "epel",
+    yumrepo { 'epel':
+        name              => 'epel',
         ensure            => present,
-        descr             => "epel repo",
+        descr             => 'epel repo',
         gpgcheck          => false,
         enabled           => true,
         mirrorlist        => 'https://mirrors.fedoraproject.org/metalink?repo=epel-$releasever&arch=$basearch',

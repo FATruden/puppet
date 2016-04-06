@@ -1,4 +1,4 @@
 class configs {
-	include configs::resolv_conf
+    include configs::resolv_conf
 }
 

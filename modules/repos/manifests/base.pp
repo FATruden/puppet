@@ -1,9 +1,9 @@
 class repos::base {
 
-    yumrepo { "base":
-        name              => "base",
+    yumrepo { 'base':
+        name              => 'base',
         ensure            => present,
-        descr             => "CentOS-base repo",
+        descr             => 'CentOS-base repo',
         gpgcheck          => false,
         enabled           => true,
         priority          => 1,
@@ -11,10 +11,10 @@ class repos::base {
         mirrorlist_expire => 7200,
         failovermethod    => priority,
     }
-    yumrepo { "updates":
-        name              => "updates",
+    yumrepo { 'updates':
+        name              => 'updates',
         ensure            => present,
-        descr             => "CentOS-update repo",
+        descr             => 'CentOS-update repo',
         gpgcheck          => false,
         enabled           => true,
         priority          => 1,
@@ -22,10 +22,10 @@ class repos::base {
         mirrorlist_expire => 7200,
         failovermethod    => priority,
     }
-    yumrepo { "extras":
-        name              => "extras",
+    yumrepo { 'extras':
+        name              => 'extras',
         ensure            => present,
-        descr             => "CentOS-extras repo",
+        descr             => 'CentOS-extras repo',
         gpgcheck          => false,
         enabled           => true,
         priority          => 2,
@@ -33,10 +33,10 @@ class repos::base {
         mirrorlist_expire => 7200,
         failovermethod    => priority,
     }
-    yumrepo { "centosplus":
-        name              => "centosplus",
+    yumrepo { 'centosplus':
+        name              => 'centosplus',
         ensure            => present,
-        descr             => "CentOS-centosplus repo",
+        descr             => 'CentOS-centosplus repo',
         gpgcheck          => false,
         enabled           => true,
         mirrorlist        => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus&infra=$infra',

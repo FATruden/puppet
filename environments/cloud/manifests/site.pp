@@ -16,7 +16,7 @@ class base {
     class {
         configs:       stage => configs,;
         repos:         stage => repos,;
-        base_packages: stage => packages,;
+        packages: stage => packages,;
     }
 }
 
