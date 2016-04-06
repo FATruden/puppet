@@ -33,7 +33,6 @@ class ssh_configs {
         require => file['ssh_config'],
         notify  => Class['ssh_service']
     }
-
 }
 
 
