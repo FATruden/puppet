@@ -1,6 +1,8 @@
 class base_packages::install {
     package { [
+            bind-utils,
             mtr,
+            mlocate,
             screen,
             strace,
             sysstat,
