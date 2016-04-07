@@ -14,23 +14,23 @@ class ssh_configs {
     require ssh_packages
 
     file { 'ssh_config':
-        path   => "/etc/ssh/ssh_config",
+        path   => '/etc/ssh/ssh_config',
         ensure => file,
         owner  => root,
         group  => root,
         mode   => 0644,
-        source => "puppet://$puppetmaster/modules/packages/ssh_config",
-        before => file['sshd_config']
+        source => 'puppet:///modules/packages/etc/ssh/ssh_config',
+        before => File['sshd_config']
     }
 
     file { 'sshd_config':
-        path    => "/etc/ssh/sshd_config",
+        path    => '/etc/ssh/sshd_config',
         ensure  => file,
         owner   => root,
         group   => root,
         mode    => 0600,
-        source  => "puppet://$puppetmaster/modules/packages/sshd_config",
-        require => file['ssh_config'],
+        source  => 'puppet:///modules/packages/etc/ssh/sshd_config',
+        require => File['ssh_config'],
         notify  => Class['ssh_service']
     }
 }

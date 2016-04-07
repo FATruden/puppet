@@ -5,6 +5,7 @@
     dns_alt_names   = <server_fqdn>,<server_short_name>
     hiera_config    = /etc/puppet/hiera.yaml
     environmentpath = /etc/puppet/environments
+    server          = <server_fqdn>
 
 [agent]
     classfile       = $vardir/classes.txt
