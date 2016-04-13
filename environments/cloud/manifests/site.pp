@@ -8,24 +8,25 @@ $domain_suffix = hiera('domain_suffix')
 $roles = hiera_array('roles', undef)
 
 
+# ------------
+# Stages
+# ------------
+
+stage { [configs,repos,packages]: }
+
+
 # -----------------
 # Classes => stages
 # -----------------
 
 class base {
     class {
-        configs:       stage => configs,;
-        repos:         stage => repos,;
+        configs:  stage => configs,;
+        repos:    stage => repos,;
         packages: stage => packages,;
     }
+    Stage[configs] -> Stage[repos] -> Stage[packages]
 }
-
-
-# ------------
-# Stages order
-# ------------
-
-stage { [configs,repos,packages]: }
 
 
 # ----------------
