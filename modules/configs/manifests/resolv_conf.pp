@@ -1,7 +1,7 @@
 class configs::resolv_conf {
 
     if 'dns_server' in $roles {
-        $ns1 = $ipaddress_lo
+        $ns1 = $facts['ipaddress_lo']
     }
 
     file{ '/etc/resolv.conf':
