@@ -13,24 +13,22 @@ class ssh_configs {
 
     require ssh_packages
 
-    file { 'ssh_config':
-        path   => '/etc/ssh/ssh_config',
-        ensure => file,
-        owner  => root,
-        group  => root,
-        mode   => 0644,
+    file { '/etc/ssh/ssh_config':
+        ensure => 'file',
+        owner  => 'root',
+        group  => 'root',
+        mode   => '0644',
         source => 'puppet:///modules/packages/etc/ssh/ssh_config',
-        before => File['sshd_config']
+        before => File['/etc/ssh/sshd_config']
     }
 
-    file { 'sshd_config':
-        path    => '/etc/ssh/sshd_config',
-        ensure  => file,
-        owner   => root,
-        group   => root,
-        mode    => 0600,
+    file { '/etc/ssh/sshd_config':
+        ensure  => 'file',
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0600',
         source  => 'puppet:///modules/packages/etc/ssh/sshd_config',
-        require => File['ssh_config'],
+        require => File['/etc/ssh/ssh_config'],
         notify  => Class['ssh_service']
     }
 }
@@ -42,8 +40,8 @@ class ssh_service {
     require ssh_configs
 
     service { 'sshd':
-        ensure  => running,
-        enable  => true,
+        ensure  => 'running',
+        enable  => 'true',
     }
 }
 
