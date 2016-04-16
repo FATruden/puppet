@@ -7,6 +7,9 @@ $ns2 = hiera('ns2')
 $domain_suffix = hiera('domain_suffix')
 $roles = hiera_array('roles', undef)
 
+# dns_server role options
+$dns_server_iface = hiera('dns_server_iface', 'eth0')
+
 
 # ------------
 # Stages

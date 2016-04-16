@@ -1,3 +1,11 @@
 ---
 roles:
  - dns_server
+
+
+#-----------------
+# Options of roles
+#-----------------
+
+# dns_server options
+dns_server_iface: <iface_name>
