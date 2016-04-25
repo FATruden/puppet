@@ -4,6 +4,6 @@ class configs::bash_env {
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
-    source => 'puppet:///modules/configs/etc/profile.d/bash_env.sh',
+    source => 'puppet:///modules/configs/bash_env.sh',
   }
 }

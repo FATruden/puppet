@@ -1,11 +1,7 @@
 ---
 roles:
- - dns_server
-
-
-#-----------------
-# Options of roles
-#-----------------
-
-# dns_server options
-dns_server_iface: <iface_name>
+ - dns_server:
+     dns_server_iface: 'eth0'
+     dns_server_forward1: '1.1.1.1'
+     dns_server_forward2: '2.2.2.2'
+ - other_role:

@@ -7,9 +7,6 @@ $ns2 = hiera('ns2')
 $domain_suffix = hiera('domain_suffix')
 $roles = hiera_array('roles', undef)
 
-# dns_server options
-$dns_server_iface = hiera('dns_server_iface', 'eth0')
-
 
 # ------
 # Stages
@@ -47,7 +44,14 @@ class dns_server {
 node default {
   include base
 
-  if 'dns_server' in $roles {
-    include dns_server
+  if $roles {
+    $roles.each |$role| {
+      if $role['dns_server'] {
+        $dns_server_iface = $role['dns_server']['dns_server_iface']
+        $dns_server_forward1 = $role['dns_server']['dns_server_forward1']
+        $dns_server_forward2 = $role['dns_server']['dns_server_forward2']
+        include dns_server
+      }
+    }
   }
 }
