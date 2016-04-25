@@ -7,28 +7,36 @@ $ns2 = hiera('ns2')
 $domain_suffix = hiera('domain_suffix')
 $roles = hiera_array('roles', undef)
 
-# dns_server role options
+# dns_server options
 $dns_server_iface = hiera('dns_server_iface', 'eth0')
 
 
-# ------------
+# ------
 # Stages
-# ------------
+# ------
 
-stage { [configs,repos,packages]: }
+stage { [ 'configs','repos','packages','ssh', 'dnsmasq' ]: }
 
 
 # -----------------
-# Classes => stages
+# Modules => stages
 # -----------------
 
 class base {
-    class {
-        configs:  stage => configs,;
-        repos:    stage => repos,;
-        packages: stage => packages,;
-    }
-    Stage[configs] -> Stage[repos] -> Stage[packages]
+  class {
+    configs:  stage => 'configs',;
+    repos:    stage => 'repos',;
+    ssh:      stage => 'ssh',;
+    packages: stage => 'packages',;
+  }
+  Stage['configs'] -> Stage['repos'] -> Stage['ssh'] -> Stage['packages']
+}
+
+class dns_server {
+  class {
+    dnsmasq: stage => 'dnsmasq',
+  }
+  Stage['packages'] -> Stage['dnsmasq']
 }
 
 
@@ -37,5 +45,9 @@ class base {
 # ----------------
 
 node default {
-    include base
+  include base
+
+  if 'dns_server' in $roles {
+    include dns_server
+  }
 }

@@ -1,14 +1,12 @@
 class packages::base {
-    package { [
-            'bind-utils',
-            'mtr',
-            'mlocate',
-            'screen',
-            'strace',
-            'sysstat',
-            'tcpdump',
-            'vim-enhanced',
-            'yum-plugin-priorities',
-            ]: ensure => 'present',
-    }
+  $general = [ 'mlocate', 'screen', 'vim-enhanced', ]
+  $net     = [ 'mtr', 'tcpdump', 'bind-utils' ]
+  $system  = [ 'sysstat', 'strace', ]
+  $other   = [ 'yum-plugin-priorities', ]
+
+  Package { ensure => 'present' }
+  package { $general: }
+  package { $net: }
+  package { $system: }
+  package { $other: }
 }
