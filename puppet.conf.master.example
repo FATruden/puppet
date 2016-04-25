@@ -5,11 +5,11 @@
     dns_alt_names     = <server_fqdn>,<server_short_name>
     hiera_config      = /etc/puppet/hiera.yaml
     environmentpath   = /etc/puppet/environments
-    server            = <server_fqdn>
+    server            = <master's fqdn>
     trusted_node_data = true
 
 [agent]
     classfile       = $vardir/classes.txt
     localconfig     = $vardir/localconfig
-    server          = <server_fqdn>
+    server          = <master's fqdn>
     environment     = cloud
