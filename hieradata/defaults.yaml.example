@@ -1,4 +1,5 @@
 ---
-ns1: 1.1.1.1
-ns2: 2.2.2.2
 domain_suffix: mydoman.local
+nameservers:
+ - 1.1.1.1
+ - 2.2.2.2

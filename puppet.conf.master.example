@@ -7,6 +7,7 @@
     environmentpath   = /etc/puppet/environments
     server            = <master's fqdn>
     trusted_node_data = true
+    parser            = future
 
 [agent]
     classfile       = $vardir/classes.txt

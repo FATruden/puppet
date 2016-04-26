@@ -2,10 +2,9 @@
 # Global variables
 #-----------------
 
-$domain_suffix = hiera('domain_suffix')
-$roles = hiera_array('roles', undef)
-$ns1 = hiera('ns1')
-$ns2 = hiera('ns2')
+$domain_suffix = hiera('domain')
+$nameservers   = hiera_array('nameservers')
+$roles         = hiera_array('roles', undef)
 
 
 # ------
@@ -45,16 +44,13 @@ node default {
   if $roles {
     $roles.each |$role| {
       if $role['dns_server'] {
+        # dns_server's specific options from hiera
         $dns_server_iface = $role['dns_server']['dns_server_iface']
         $dns_server_forward1 = $role['dns_server']['dns_server_forward1']
         $dns_server_forward2 = $role['dns_server']['dns_server_forward2']
         # override resolve_conf variables
-        $resolv_ns1 = $facts['ipaddress_lo']
-        $resolv_ns2 = $::ns2
-      }
-      else {
-        $resolv_ns1 = $::ns1
-        $resolv_ns2 = $::ns2
+        $nameservers = [ $facts['ipaddress_lo'], $::nameservers[1] ]
+        include dns_server
       }
       include base
     }
