@@ -2,8 +2,8 @@ class repos::puppet {
   yumrepo { 'puppet':
     ensure   => 'present',
     descr    => "Puppet Labs Products",
-    gpgcheck => false,
-    enabled  => true,
+    gpgcheck => 0,
+    enabled  => 1,
     priority => 95,
     baseurl  => 'http://yum.puppetlabs.com/el/$releasever/products/$basearch',
   }
@@ -12,8 +12,8 @@ class repos::puppet {
     name     => 'puppet-deps',
     ensure   => 'present',
     descr    => 'Puppet Labs Dependencies',
-    gpgcheck => false,
-    enabled  => true,
+    gpgcheck => 0,
+    enabled  => 1,
     priority => 95,
     baseurl  => 'http://yum.puppetlabs.com/el/$releasever/dependencies/$basearch',
   }
