@@ -1,22 +1,17 @@
 class ssh::configs {
+
   require ssh::packages
 
-  file { '/etc/ssh/ssh_config':
-    ensure => 'file',
+  create_ssh_configs { '/etc/ssh/ssh_config': mode => '644' }
+  create_ssh_configs { '/etc/ssh/sshd_config': mode => '600' }
+}
+
+define create_ssh_configs ($mode) {
+  file { $name:
     owner  => 'root',
     group  => 'root',
-    mode   => '0644',
-    source => 'puppet:///modules/ssh/ssh_config',
-    before => File['/etc/ssh/sshd_config']
-  }
-
-  file { '/etc/ssh/sshd_config':
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0600',
-    source  => 'puppet:///modules/ssh/sshd_config',
-    require => File['/etc/ssh/ssh_config'],
-    notify  => Class['ssh::services']
+    mode   => $mode,
+    source => "puppet:///modules/ssh${name}",
+    notify => Class['ssh::services']
   }
 }
