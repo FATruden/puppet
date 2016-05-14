@@ -8,21 +8,25 @@ class repos::base {
   }
 
   yumrepo { 'base':
+    descr      => 'base',
     priority   => 50,
     mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os&infra=$infra',
   }
 
   yumrepo { 'updates':
+    descr      => 'updates',
     priority   => 50,
     mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates&infra=$infra',
   }
 
   yumrepo { 'extras':
+    descr      => 'extras',
     priority   => 51,
     mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras&infra=$infra',
   }
 
   yumrepo { 'centosplus':
+    descr      => 'centosplus',
     mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus&infra=$infra',
   }
 }

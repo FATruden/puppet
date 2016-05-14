@@ -7,10 +7,12 @@ class repos::puppet {
   }
 
   yumrepo { 'puppet':
+    descr   => 'puppet',
     baseurl => 'http://yum.puppetlabs.com/el/$releasever/products/$basearch',
   }
 
   yumrepo { 'puppet-deps':
+    descr   => 'puppet-deps',
     baseurl => 'http://yum.puppetlabs.com/el/$releasever/dependencies/$basearch',
   }
 }
