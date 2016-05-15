@@ -11,7 +11,7 @@ $roles         = hiera_array('roles', undef)
 # Stages
 # ------
 
-stage { [ 'configs','repos','packages','ssh', 'dnsmasq' ]: }
+stage { [ 'configs','repos','packages','ssh', 'ntp', 'dnsmasq' ]: }
 
 
 # -----------------
@@ -35,6 +35,13 @@ class dns_server {
   Stage['packages'] -> Stage['dnsmasq']
 }
 
+#class ntp_server {
+#  class {
+#    ntp: stage => 'ntp',
+#  }
+#  Stage['dnsmasq'] -> Stage['ntp']
+#}
+
 
 # ----------------
 # Nodes definition
@@ -53,8 +60,10 @@ node default {
         include dns_server
       }
       include base
+      include ntp
     }
   }
   # for role-less nodes
   include base
+  include ntp
 }

@@ -1,0 +1,46 @@
+
+# never forward plain names (without a dot or domain part)
+domain-needed
+
+# never forward addresses in the non-routed address spaces.
+bogus-priv
+
+# filter useless windows-originated DNS requests
+filterwin2k
+
+# ignore nameservers in /etc/resolv.conf
+# ignore /etc/resolv.conf
+# ignore updates in those files
+no-resolv
+no-hosts
+no-poll
+
+log-queries
+
+# cache options
+cache-size=2048
+log-async=5
+
+# forward to
+server=<%= @dns_server_forward1 %>
+server=<%= @dns_server_forward2 %>
+
+# listen for DHCP and DNS requests only on
+# specified interfaces (and the loopback)
+interface=<%= @dns_server_iface %>
+no-dhcp-interface=<%= @dns_server_iface %>
+
+# bind only on specifyied interfaces.
+# don't dynamic bind on new and other interfaces.
+bind-interfaces
+
+
+conf-dir=/etc/dnsmasq.d
+addn-hosts=/etc/dnsmasq.d/<%= @domain_suffix %>
+
+# local domain
+domain=<%= @domain_suffix %>
+# different domains for some networks
+#domain=<domain>,<net/preffix>
+# different domains for some addresses
+#domain=<domain>,<ip1>,<ip2>

@@ -2,6 +2,15 @@
 roles:
  - dns_server:
      dns_server_iface: 'eth0'
-     dns_server_forward1: '1.1.1.1'
-     dns_server_forward2: '2.2.2.2'
+     dns_server_forward1: 'x.x.x.x'
+     dns_server_forward2: 'y.y.y.y'
  - other_role:
+
+ntp::config::is_server: true
+ntp::config::allow: 'x.x.x.x/24'
+ntp::config::use_pool: true
+ntp::config::pool: 'pool.ntp.org'
+ntp::config::servers:
+ - 'x.x.x.x'
+ - 'y.y.y.y'
+ - 'z.z.z.z'

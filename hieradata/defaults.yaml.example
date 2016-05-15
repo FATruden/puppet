@@ -1,5 +1,7 @@
 ---
 domain_suffix: mydoman.local
 nameservers:
- - 1.1.1.1
- - 2.2.2.2
+ - 'x.x.x.x'
+ - 'y.y.y.y'
+ntp::config::for_clients:
+ - 'z.z.z.z'
