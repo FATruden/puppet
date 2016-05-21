@@ -1,4 +1,8 @@
-class configs::resolv_conf {
+class configs::resolv_conf (
+  $nameserver0 = '8.8.4.4',
+  $nameserver1 = '8.8.8.8'
+  ){
+
   file{ '/etc/resolv.conf':
     owner   => 'root',
     group   => 'root',
