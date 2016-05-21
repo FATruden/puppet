@@ -3,8 +3,7 @@
 #-----------------
 
 $domain_suffix = hiera('domain')
-$nameservers   = hiera_array('nameservers')
-$roles         = hiera_array('roles', undef)
+$roles         = hiera_hash('roles', undef)
 
 
 # ------
@@ -49,19 +48,11 @@ class dns_server {
 
 node default {
   if $roles {
-    $roles.each |$role| {
-      if $role['dns_server'] {
-        # dns_server's specific options from hiera
-        $dns_server_iface = $role['dns_server']['dns_server_iface']
-        $dns_server_forward1 = $role['dns_server']['dns_server_forward1']
-        $dns_server_forward2 = $role['dns_server']['dns_server_forward2']
-        # override resolve_conf variables
-        $nameservers = [ $facts['ipaddress_lo'], $::nameservers[1] ]
-        include dns_server
-      }
-      include base
-      include ntp
+    if $roles['dnsmasq'] {
+      include dns_server
     }
+    include base
+    include ntp
   }
   # for role-less nodes
   include base

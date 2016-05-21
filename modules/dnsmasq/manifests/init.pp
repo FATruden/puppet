@@ -1,5 +1,5 @@
 class dnsmasq {
-  include dnsmasq::packages
-  include dnsmasq::configs
-  include dnsmasq::services
+  include dnsmasq::install
+  include dnsmasq::config
+  include dnsmasq::service
 }

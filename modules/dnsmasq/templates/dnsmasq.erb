@@ -22,13 +22,13 @@ cache-size=2048
 log-async=5
 
 # forward to
-server=<%= @dns_server_forward1 %>
-server=<%= @dns_server_forward2 %>
+server=<%= @roles['dnsmasq']['forward0'] %>
+server=<%= @roles['dnsmasq']['forward1'] %>
 
 # listen for DHCP and DNS requests only on
 # specified interfaces (and the loopback)
-interface=<%= @dns_server_iface %>
-no-dhcp-interface=<%= @dns_server_iface %>
+interface=<%= @iface %>
+no-dhcp-interface=<%= @iface %>
 
 # bind only on specifyied interfaces.
 # don't dynamic bind on new and other interfaces.
