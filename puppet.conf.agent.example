@@ -1,10 +1,2 @@
-[main]
-    logdir = /var/log/puppet
-    rundir = /var/run/puppet
-    ssldir = $vardir/ssl
-
 [agent]
-    classfile   = $vardir/classes.txt
-    localconfig = $vardir/localconfig
-    server      = <master's fqdn>
-    environment = cloud
+server = < FQDN of puppetserver >

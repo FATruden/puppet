@@ -8,12 +8,4 @@
 RSYNC=/bin/rsync
 USR_DST=$1
 
-$RSYNC -zrvc    auth.conf \
-                environments \
-                fileserver.conf \
-                hiera.yaml \
-                hieradata \
-                manifests \
-                modules \
-                puppet.conf.master.example \
-                $USR_DST:/etc/puppet/
+$RSYNC -zrvc manifests modules $USR_DST:/etc/puppetlabs/code/environments/production/
