@@ -1,9 +1,9 @@
 ---
 :backends:
   - yaml
-:hierarchy:
-  - defaults
+:hierarchy: # priority lookup from top to bottom
   - "%{clientcert}"
+  - defaults
 
 :logger: console
 :yaml:

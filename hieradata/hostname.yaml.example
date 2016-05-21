@@ -1,16 +1,36 @@
 ---
 roles:
- - dns_server:
-     dns_server_iface: 'eth0'
-     dns_server_forward1: 'x.x.x.x'
-     dns_server_forward2: 'y.y.y.y'
- - other_role:
+  dnsmasq:
+    forward0: 'a.a.a.a'
+    forward1: 'b.b.b.b'
+  chrony:
+    allow: 'f.f.f.f/24'
 
-ntp::config::is_server: true
-ntp::config::allow: 'x.x.x.x/24'
-ntp::config::use_pool: true
-ntp::config::pool: 'pool.ntp.org'
-ntp::config::servers:
- - 'x.x.x.x'
- - 'y.y.y.y'
- - 'z.z.z.z'
+# -----------------
+# 'dnsmasq' options
+# -----------------
+#
+# listen iface. Default is 'eth0'
+#dnsmasq::config::iface: 'iface_name'
+
+
+# ----------------
+# 'chrony' options
+# ----------------
+#
+# Pool name. Default: pool.ntp.org
+#chrony::config::pool: 'pool.ntp.org'
+
+# use 'pool' or doesn't use 'pool'. Default: true
+#chrony::config::use_pool: true|false
+
+# if use_pool: false, specify server list
+#chrony::config::servers:
+# - 'x.x.x.x'
+# - 'y.y.y.y'
+# - 'z.z.z.z'
+
+# ----------------------
+# Override defaults.yaml
+# ----------------------
+configs::resolv_conf::nameserver0: 127.0.0.1
