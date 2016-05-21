@@ -1,6 +1,5 @@
-class ntp::service {
-  require ntp::install
-  require ntp::config
+class chrony::service {
+  require chrony::config
 
   service { 'chronyd':
     ensure => 'running',

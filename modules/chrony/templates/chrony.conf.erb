@@ -11,13 +11,13 @@ pool <%= @pool %> iburst
 server <%= @servers[0] %> iburst
 server <%= @servers[1] %> iburst
 server <%= @servers[2] %> iburst
-<% elsif not @server -%>
+<% elsif not @is_server -%>
 server <%= @for_clients[0] -%>
 <% end -%>
 
 <% if @is_server -%>
 # Allow NTP client access from local network.
-allow <%= @allow %>
+allow <%= @roles['chrony']['allow'] %>
 <% end -%>
 
 # Ignore stratum in source selection.
