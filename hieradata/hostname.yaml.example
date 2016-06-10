@@ -6,6 +6,7 @@ roles:
   chrony:
     allow: 'f.f.f.f/24'
 
+
 # -----------------
 # 'dnsmasq' options
 # -----------------
@@ -30,7 +31,17 @@ roles:
 # - 'y.y.y.y'
 # - 'z.z.z.z'
 
+
 # ----------------------
 # Override defaults.yaml
 # ----------------------
+#
 configs::resolv_conf::nameserver0: 127.0.0.1
+
+
+# ------------------
+# Additions packages
+# ------------------
+#
+#pkgs_additions:
+#  xxxx: {ensure: present}

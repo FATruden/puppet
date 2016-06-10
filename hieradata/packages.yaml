@@ -1,0 +1,4 @@
+---
+pkgs_base:
+  xxxx:    {ensure: present}
+  yyyyyyy: {ensure: absent}
