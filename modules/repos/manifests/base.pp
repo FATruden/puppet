@@ -1,35 +1,15 @@
 class repos::base {
-  Yumrepo {
-    ensure            => 'present',
-    gpgcheck          => 0,
-    enabled           => 1,
-    mirrorlist_expire => '7200',
-    failovermethod    => 'priority',
-  }
+  require repos::remove_unknown_repos
+  tag 'repos_base'
 
-  yumrepo { 'base':
-    descr      => 'base',
-    priority   => 50,
-    mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os&infra=$infra',
-  }
+  $base_default = hiera_hash('repos_default', {})
+  $base = hiera_hash('repos_base', undef)
 
-  yumrepo { 'updates':
-    descr      => 'updates',
-    priority   => 50,
-    mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates&infra=$infra',
-  }
-
-  yumrepo { 'extras':
-    descr      => 'extras',
-    priority   => 51,
-    mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras&infra=$infra',
-  }
-
-  yumrepo { 'centosplus':
-    descr      => 'centosplus',
-    mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus&infra=$infra',
+  if $base {
+    create_resources(yumrepo, $base, $base_default)
   }
 }
 
 #TODO: GPG check
-#TODO: Add repo descriptions
+
+

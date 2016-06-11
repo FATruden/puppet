@@ -3,6 +3,7 @@
   - yaml
 :hierarchy: # priority lookup from top to bottom
   - "%{clientcert}"
+  - repos
   - packages
   - defaults
 

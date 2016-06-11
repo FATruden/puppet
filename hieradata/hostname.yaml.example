@@ -45,3 +45,13 @@ configs::resolv_conf::nameserver0: 127.0.0.1
 #
 #pkgs_additions:
 #  xxxx: {ensure: present}
+
+
+# ----------------
+# Additional repos
+# ----------------
+#
+repos_additional:
+  xxxxx:
+    descr: xxxxx
+    baseurl: 'https://xxxx'
