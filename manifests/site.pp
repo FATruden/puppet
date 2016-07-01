@@ -5,6 +5,8 @@
 $domain_suffix = hiera('domain')
 $roles         = hiera_hash('roles', undef)
 
+hiera_include('classes')
+
 
 # ------
 # Stages
