@@ -21,9 +21,10 @@ log-queries
 cache-size=2048
 log-async=5
 
+<% if @allow_forward -%>
 # forward to
-server=<%= @roles['dnsmasq']['forward0'] %>
-server=<%= @roles['dnsmasq']['forward1'] %>
+<%= @forward_to.join("\n") %>
+<% end -%>
 
 # listen for DHCP and DNS requests only on
 # specified interfaces (and the loopback)

@@ -1,5 +1,7 @@
 class dnsmasq::config (
-  $iface = 'eth0'
+  String  $iface         = 'eth0',
+  Boolean $allow_forward = false,
+  Array   $forward_to    = [],
   ) {
   require dnsmasq::install
 

@@ -1,19 +1,21 @@
 ---
 roles:
-  dnsmasq:
-    forward0: 'a.a.a.a'
-    forward1: 'b.b.b.b'
   chrony:
     allow: 'f.f.f.f/24'
 
 
-# -----------------
-# 'dnsmasq' options
-# -----------------
-#
-# listen iface. Default is 'eth0'
-#dnsmasq::config::iface: 'iface_name'
+classes:
+ - class_name
 
+# -----------------------
+# 'dnsmasq' class options
+# -----------------------
+#
+dnsmasq::config::iface: 'iface_name'
+dnsmasq::config::allow_forward: false
+dnsmasq::config::forward_to:
+ - 'server=x.x.x.x'
+ - 'server=y.y.y.y'
 
 # ----------------
 # 'chrony' options

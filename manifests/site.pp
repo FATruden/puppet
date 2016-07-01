@@ -8,11 +8,18 @@ $roles         = hiera_hash('roles', undef)
 hiera_include('classes')
 
 
-# ------
-# Stages
-# ------
+# -----------------------
+# Stages and requirements
+# -----------------------
 
-stage { [ 'configs','repos','packages','ssh', 'chrony', 'dnsmasq' ]: }
+stage {
+  'configs':,;
+  'repos':,;
+  'packages': require => Stage['repos'],;
+  'ssh':,;
+  'chrony':,;
+  'dnsmasq':,;
+  }
 
 
 # -----------------
@@ -26,21 +33,12 @@ class base {
     'ssh':      stage => 'ssh',;
     'packages': stage => 'packages',;
   }
-  Stage['configs'] -> Stage['repos'] -> Stage['ssh'] -> Stage['packages']
-}
-
-class dns_server {
-  class {
-    'dnsmasq': stage => 'dnsmasq',
-  }
-  Stage['packages'] -> Stage['dnsmasq']
 }
 
 class ntp_server {
   class {
     'chrony': stage => 'chrony',
   }
-  Stage['dnsmasq'] -> Stage['chrony']
 }
 
 
@@ -49,14 +47,6 @@ class ntp_server {
 # ----------------
 
 node default {
-  if $::roles {
-    if $::roles['dnsmasq'] {
-      include dns_server
-    }
-    include base
-    include ntp_server
-  }
-  # for role-less nodes
   include base
   include ntp_server
 }
