@@ -1,5 +1,10 @@
 #!/bin/bash
 
+
+# ---
+# PS1
+# ---
+
 #Black       0;30     Dark Gray     1;30
 #Blue        0;34     Light Blue    1;34
 #Green       0;32     Light Green   1;32
@@ -14,8 +19,27 @@ IBLUE="\e[1;34m"
 GREEN="\e[0;32m"
 RESET="\e[0m"
 
-# For insert roles list
+# for insert roles list
 #PS1="\[$BLUE\]\A /\[$IBLUE\]TEXT/ \[$RESET\]\[$GREEN\]\u@\h \[$GREEN\]\W \\$ \[$RESET\]"
 
 PS1="\[$BLUE\]\A \[$RESET\]\[$GREEN\]\u@\h \[$GREEN\]\W \\$ \[$RESET\]"
 export PS1
+
+# ---------------
+# Bash parameters
+# ---------------
+
+## intelegent auto complit
+shopt -s cdspell
+# no dublicate history
+export HISTCONTROL="ignoredups"
+# real time writing all user history
+shopt -s histappend
+# expand_aliases
+shopt -s expand_aliases
+
+## -------
+## Aliases
+## -------
+#
+alias pp="puppet agent -t"
