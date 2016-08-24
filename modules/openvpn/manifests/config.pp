@@ -5,8 +5,6 @@ class openvpn::config (
   ) {
   require openvpn::install
 
-  notify {$routes:}
-
   file { '/etc/openvpn/server.conf':
     owner   => 'root',
     group   => 'root',
