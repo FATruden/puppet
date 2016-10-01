@@ -12,33 +12,20 @@ hiera_include('classes')
 # Stages and requirements
 # -----------------------
 
-stage {
-  'configs':,;
-  'repos':,;
-  'packages': require => Stage['repos'],;
-  'ssh':,;
-  'chrony':,;
-  'dnsmasq':,;
-  }
+stage { 'configs': before => Stage['repos'] }
+stage { 'repos':   before => Stage['main'] }
 
 
 # -----------------
 # Modules => stages
 # -----------------
 
-class base {
-  class {
-    'configs':  stage => 'configs',;
-    'repos':    stage => 'repos',;
-    'ssh':      stage => 'ssh',;
-    'packages': stage => 'packages',;
-  }
+class {'configs':
+  stage => 'configs',
 }
 
-class ntp_server {
-  class {
-    'chrony': stage => 'chrony',
-  }
+class {'repos':
+  stage => 'repos',
 }
 
 
@@ -46,7 +33,6 @@ class ntp_server {
 # Nodes definition
 # ----------------
 
-node default {
-  include base
-  include ntp_server
-}
+include chrony
+include packages
+include ssh
