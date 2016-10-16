@@ -1,5 +1,5 @@
 class repos::base {
-  require repos::remove_unknown_repos
+  require repos::yum_clean_all
   tag 'repos_base'
 
   $base_default = hiera_hash('repos_default', {})

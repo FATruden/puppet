@@ -33,17 +33,3 @@ repos_base:
     descr:    puppet-source
     baseurl: 'http://yum.puppetlabs.com/el/$releasever/PC1/SRPMS'
     enabled: 0
-
-
-# ---------------------------------
-# Repolist for remove_unknown_repos
-# ---------------------------------
-#
-repos_list:
- - base
- - updates
- - extras
- - epel
- - puppet
- - puppet-source
- - test
