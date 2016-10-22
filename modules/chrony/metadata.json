@@ -1,0 +1,44 @@
+{
+  "name": "fatruden-chrony",
+  "version": "0.0.5",
+  "author": "Aleksandr Rudenko",
+  "summary": "Module for installing and managing chrony",
+  "license": "Apache-2.0",
+  "source": "https://github.com/FATruden/puppet/tree/master/modules/chrony",
+  "project_page": "https://github.com/FATruden/puppet",
+  "issues_url": "https://github.com/FATruden/puppet/issues",
+  "dependencies": [],
+  "data_provider": null,
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7",
+        "6.6"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "7",
+        "6.6"
+      ]
+    },
+    {
+      "operatingsystem": "Fedora",
+      "operatingsystemrelease": [
+        "21"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": ">= 3.7.0"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": ">= 3.4.0"
+    }
+  ]
+}

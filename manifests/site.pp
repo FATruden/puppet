@@ -33,6 +33,5 @@ class {'repos':
 # Nodes definition
 # ----------------
 
-include chrony
 include packages
 include ssh

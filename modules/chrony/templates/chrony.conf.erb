@@ -5,19 +5,19 @@
 #server 2.centos.pool.ntp.org iburst
 #sever 3.centos.pool.ntp.org iburst
 
-<% if @is_server and @use_pool -%>
-pool <%= @pool %> iburst
-<% elsif @is_server and not @use_pool -%>
-server <%= @servers[0] %> iburst
-server <%= @servers[1] %> iburst
-server <%= @servers[2] %> iburst
-<% elsif not @is_server -%>
-server <%= @for_clients[0] -%>
+<% if scope['chrony::is_server'] and scope['chrony::use_pool']-%>
+pool <%= scope['chrony::pool'] %> iburst
+<% elsif scope['chrony::is_server'] and not scope['chrony::use_pool'] -%>
+server <%= scope['chrony::server_servers'][0] %> iburst
+server <%= scope['chrony::server_servers'][1] %> iburst
+server <%= scope['chrony::server_servers'][2] %> iburst
+<% elsif not scope['chrony::is_server'] -%>
+server <%= scope['chrony::client_servers'][0] -%>
 <% end -%>
 
-<% if @is_server -%>
+<% if scope['chrony::is_server'] -%>
 # Allow NTP client access from local network.
-allow <%= @roles['chrony']['allow'] %>
+allow <%= scope['chrony::server_allow'][0] %>
 <% end -%>
 
 # Ignore stratum in source selection.
