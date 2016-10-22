@@ -1,14 +1,4 @@
----
-# ------------------------
-# Base repos for all nodes
-# ------------------------
-#
-repos__default:
-  gpgcheck: 0
-  enabled:  1
-  mirrorlist_expire: 7200
-  failovermethod:    priority
-
+```
 repos_base:
   base:
     descr: base
@@ -33,3 +23,11 @@ repos_base:
     descr:    puppet-source
     baseurl: 'http://yum.puppetlabs.com/el/$releasever/PC1/SRPMS'
     enabled: 0
+```
+
+```
+repos_additional:
+  xxxxx:
+    descr: xxxxx
+    baseurl: 'https://xxxx'
+```
