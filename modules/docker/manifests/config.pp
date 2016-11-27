@@ -1,27 +1,30 @@
 class docker::config {
   require docker::make_volume
 
-  $daemon_json = @(EOF)
-  {
-    "storage-driver": "<%= $::docker::storage_driver %>",
-    "storage-opts": []
-  }
-  | EOF
+  if ! empty($::docker::volume) {
 
-  File {
-    owner => 'root',
-    group => 'root',
-    mode  => '0644',
-  }
+    $daemon_json = @(EOF)
+    {
+      "storage-driver": "<%= $::docker::storage_driver %>",
+      "storage-opts": []
+    }
+    | EOF
 
-  file { '/etc/docker':
-    ensure => directory,
-    mode   => '0755',
-  }
+    File {
+      owner => 'root',
+      group => 'root',
+      mode  => '0644',
+    }
 
-  file { '/etc/docker/daemon.json':
-    content => inline_epp($daemon_json),
-    require => File['/etc/docker'],
-    notify  => Class['docker::service']
+    file { '/etc/docker':
+      ensure => directory,
+      mode   => '0755',
+    }
+
+    file { '/etc/docker/daemon.json':
+      content => inline_epp($daemon_json),
+      require => File['/etc/docker'],
+      notify  => Class['docker::service']
+    }
   }
 }

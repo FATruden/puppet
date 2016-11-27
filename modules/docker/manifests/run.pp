@@ -1,5 +1,9 @@
 # define docker::run resource
+# TODO
+# - loging
+# - not rm
 define docker::run (
+  $ensure = 'present',
   $image = undef,
   $depends_on = [],
   $volumes = [],
@@ -9,11 +13,11 @@ define docker::run (
   $extra_hosts = [],
   $extra_params = [],
   $command = undef,
-  ){
-
-  $service_prefix = 'docker'
-  $docker_command = '/bin/docker'
-  $default_flags = ['-m 0b',]
+  ) {
+  include docker::params
+  $service_prefix = $docker::params::service_prefix
+  $docker_command = $docker::params::docker_command
+  $default_flags  = $docker::params::default_flags
 
   if $image {}
   else {
@@ -64,16 +68,6 @@ define docker::run (
   $all_flags_without_empty = delete($all_flags, '')
   $docker_run_flags = join($all_flags_without_empty, ' ')
 
-
-  file { "/etc/systemd/system/${service_prefix}-${title}.service":
-    ensure  => present,
-    mode    => '0644',
-    owner   => 'root',
-    group   => 'root',
-    content => template('docker/etc/systemd/system/docker-run.erb'),
-    notify  => [Class['docker::systemd_daemon_reload'], Service["${service_prefix}-${title}"]]
-  }
-
   if ! empty($run_depends_on) {
     $service_require = [Service[$run_depends_on], Class['docker::systemd_daemon_reload']]
   }
@@ -81,9 +75,44 @@ define docker::run (
     $service_require = Class['docker::systemd_daemon_reload']
   }
 
-  service { "${service_prefix}-${title}":
-    ensure  => running,
-    enable  => false,
-    require => $service_require,
+  case $ensure {
+    'present': {
+      $ensure_unit = 'present'
+      $ensure_service = 'running'
+
+      file { "/etc/systemd/system/${service_prefix}-${title}.service":
+        ensure  => $ensure_unit,
+        mode    => '0644',
+        owner   => 'root',
+        group   => 'root',
+        content => template('docker/etc/systemd/system/docker-run.erb'),
+        notify  => [Class['docker::systemd_daemon_reload'], Service["${service_prefix}-${title}"]]
+      }
+      # TODO:
+      # - enable for services to params
+      service { "${service_prefix}-${title}":
+        ensure  => $ensure_service,
+        enable  => false,
+        require => $service_require,
+      }
+    }
+    'absent': {
+      $ensure_unit = 'absent'
+      $ensure_service = 'stopped'
+
+      service { "${service_prefix}-${title}":
+        ensure => $ensure_service,
+        enable => false,
+        notify => File["/etc/systemd/system/${service_prefix}-${title}.service"]
+      }
+
+      file { "/etc/systemd/system/${service_prefix}-${title}.service":
+        ensure => $ensure_unit,
+        notify => Class['docker::systemd_daemon_reload'],
+      }
+    }
+    default: {
+      fail("isn't correct 'ensure' flag!")
+    }
   }
 }

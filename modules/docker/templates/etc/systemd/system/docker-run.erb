@@ -8,13 +8,13 @@ Wants=
 Requires=docker.service
 
 [Service]
-Restart=on-failure
+#Restart=on-failure
 StartLimitInterval=20
 StartLimitBurst=5
 TimeoutStartSec=0
 Environment="HOME=/root"
 ExecStartPre=-<%= @docker_command %> kill <%= @title %>
-ExecStartPre=-<%= @docker_command %> rm <%= @title %>
+ExecStartPre=-<%= @docker_command %> rm -f <%= @title %>
 
 ExecStart=<%= @docker_command %> run \
         --name <%= @title %> \
@@ -22,7 +22,7 @@ ExecStart=<%= @docker_command %> run \
         <%= @image %> \
         <% if @set_command %><%= @command %><% end %>
 ExecStop=-<%= @docker_command %> stop --time=0 <%= @title %>
-ExecStop=-<%= @docker_command %> rm <%= @title %>
+ExecStop=-<%= @docker_command %> rm -f <%= @title %>
 
 [Install]
 WantedBy=multi-user.target

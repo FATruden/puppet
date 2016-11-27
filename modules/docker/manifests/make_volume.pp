@@ -1,7 +1,9 @@
+# Configure storage driver for docker
 class docker::make_volume {
   require docker::install
 
-  if ( $::docker::volume != '' ) {
+  if ! empty($::docker::volume) {
+    notify{'EMPTY':}
 
     case $::docker::storage_driver {
       'overlay': {
