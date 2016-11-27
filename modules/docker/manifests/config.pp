@@ -3,23 +3,25 @@ class docker::config {
 
   $daemon_json = @(EOF)
   {
-    "storage-driver": "overlay",
+    "storage-driver": "<%= $::docker::storage_driver %>",
     "storage-opts": []
   }
   | EOF
 
+  File {
+    owner => 'root',
+    group => 'root',
+    mode  => '0644',
+  }
+
   file { '/etc/docker':
     ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
+    mode   => '0755',
   }
 
   file { '/etc/docker/daemon.json':
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
     content => inline_epp($daemon_json),
     require => File['/etc/docker'],
+    notify  => Class['docker::service']
   }
 }

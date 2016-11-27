@@ -1,0 +1,28 @@
+# This file is managed by Puppet and local changes
+# may be overwritten
+
+[Unit]
+Description=Daemon for <%= @title %>
+After=docker.service
+Wants=
+Requires=docker.service
+
+[Service]
+Restart=on-failure
+StartLimitInterval=20
+StartLimitBurst=5
+TimeoutStartSec=0
+Environment="HOME=/root"
+ExecStartPre=-<%= @docker_command %> kill <%= @title %>
+ExecStartPre=-<%= @docker_command %> rm <%= @title %>
+
+ExecStart=<%= @docker_command %> run \
+        --name <%= @title %> \
+        <%= @docker_run_flags %> \
+        <%= @image %> \
+        <% if @set_command %><%= @command %><% end %>
+ExecStop=-<%= @docker_command %> stop --time=0 <%= @title %>
+ExecStop=-<%= @docker_command %> rm <%= @title %>
+
+[Install]
+WantedBy=multi-user.target
