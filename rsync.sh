@@ -8,4 +8,21 @@
 RSYNC=/bin/rsync
 USR_DST=$1
 
-$RSYNC -zrvc manifests modules $USR_DST:/etc/puppetlabs/code/environments/production/
+echo "  => Syncing 'manifests' and 'modules'"
+$RSYNC -zrvc --delete \
+manifests \
+modules/chrony \
+modules/common \
+modules/configs \
+modules/dnsmasq \
+modules/docker \
+modules/openvpn \
+modules/packages \
+modules/puppet \
+modules/repos \
+modules/ssh \
+$USR_DST:/etc/puppetlabs/code/environments/production/modules/
+
+$RSYNC -zrvc --delete \
+manifests \
+$USR_DST:/etc/puppetlabs/code/environments/production/
