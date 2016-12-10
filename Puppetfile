@@ -1,4 +1,6 @@
-# Puppet Forge
+# module path
+moduledir '/etc/puppetlabs/code/modules/'
+# Puppet Forge modules
 mod 'puppetlabs/stdlib', '4.13.1'
 
 # A module from your own git server
