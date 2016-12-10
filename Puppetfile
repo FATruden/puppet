@@ -1,5 +1,5 @@
 # Puppet Forge
-mod 'puppetlabs/stdlib', '4.3.1'
+mod 'puppetlabs/stdlib', '4.13.1'
 
 # A module from your own git server
 #mod 'custom',
