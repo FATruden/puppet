@@ -1,6 +1,6 @@
 $tmp_dir = '/tmp/puppet_repo'
 $git_repo = 'git@github.com:FATruden/puppet.git'
-$branches = ['production']
+$branches = [ 'production', ]
 $sync_dir = ['modules', 'manifests']
 
 notify{'Hello from sync':}
@@ -15,7 +15,21 @@ exec {'clone_repo':
   path    => ['/bin/']
 }
 
-exec {'co_to_branch':
-  cwd     => $tmp_dir,
-  command => "git checkout ${branches}[0]"
+$branches.each |String $branch| {
+  exec {"co_to_${branch}":
+    cwd     => $tmp_dir,
+    command => "git checkout ${branch}",
+    path    => ['/bin/']
+  }
+
+  file {"/etc/puppetlabs/code/environments/${branch}/modules":
+    ensure  => directory,
+    recurse => true,
+    source  => "${tmp_dir}/modules",
+  }
+  file {"/etc/puppetlabs/code/environments/${branch}/manifests":
+    ensure  => directory,
+    recurse => true,
+    source  => "${tmp_dir}/manifests",
+  }
 }

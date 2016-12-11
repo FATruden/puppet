@@ -10,7 +10,6 @@ USR_DST=$1
 
 echo "  => Syncing 'manifests' and 'modules'"
 $RSYNC -zrvc --delete \
-manifests \
 modules/chrony \
 modules/common \
 modules/configs \
@@ -25,4 +24,8 @@ $USR_DST:/etc/puppetlabs/code/environments/production/modules/
 
 $RSYNC -zrvc --delete \
 manifests \
+$USR_DST:/etc/puppetlabs/code/environments/production/
+
+$RSYNC -zrvc --delete \
+sync_env.pp \
 $USR_DST:/etc/puppetlabs/code/environments/production/
