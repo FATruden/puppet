@@ -28,4 +28,4 @@ $USR_DST:/etc/puppetlabs/code/environments/production/
 
 $RSYNC -zrvc --delete \
 sync_env.pp \
-$USR_DST:/etc/puppetlabs/code/environments/production/
+$USR_DST:/etc/puppetlabs/code/
