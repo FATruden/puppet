@@ -1,35 +1,59 @@
-$tmp_dir = '/tmp/puppet_repo'
-$git_repo = 'git@github.com:FATruden/puppet.git'
-$branches = [ 'production', ]
-$sync_dir = ['modules', 'manifests']
+$tmp_dir      = '/tmp/puppet_repo'
+$git_repo     = 'git@github.com:FATruden/puppet.git'
+$env_base_dir = '/etc/puppetlabs/code/environments'
+$default_ref  = 'master'
+$default_env  = 'production'
+$sync_dir     = [ 'modules', 'manifests', ]
+$hiera_dir    = $facts['networking']['domain']
 
-notify{'Hello from sync':}
+if ! empty($facts['ref']) {
+  $ref_to_sync = $facts['ref']
+}
+else {
+  $ref_to_sync = $default_ref
+}
+
+if ! empty($facts['env']) {
+  $env_to_sync = $facts['env']
+}
+else {
+  $env_to_sync = $default_env
+}
+
+File {
+  ensure  => directory,
+  recurse => true,
+  purge   => true,
+  force   => true,
+}
+
+Exec {
+  path => [ '/bin', ]
+}
 
 file {$tmp_dir:
   ensure => absent,
-  force  => true
 }
 
-exec {'clone_repo':
+exec {"git_clone_${git_repo}_${tmp_dir}":
   command => "git clone ${git_repo} ${tmp_dir}",
-  path    => ['/bin/']
 }
 
-$branches.each |String $branch| {
-  exec {"co_to_${branch}":
-    cwd     => $tmp_dir,
-    command => "git checkout ${branch}",
-    path    => ['/bin/']
-  }
+exec {"git_checkout_to_${ref_to_sync}":
+  cwd     => $tmp_dir,
+  command => "git checkout ${ref_to_sync}",
+}
 
-  file {"/etc/puppetlabs/code/environments/${branch}/modules":
-    ensure  => directory,
-    recurse => true,
-    source  => "${tmp_dir}/modules",
+file{"${env_base_dir}/${env_to_sync}":}
+
+# sync $sync_dir
+$sync_dir.each | String $dir  | {
+  file {"${env_base_dir}/${env_to_sync}/${dir}":
+    source  => "${tmp_dir}/${dir}",
   }
-  file {"/etc/puppetlabs/code/environments/${branch}/manifests":
-    ensure  => directory,
-    recurse => true,
-    source  => "${tmp_dir}/manifests",
-  }
+}
+
+#sync hieradata
+file {"${env_base_dir}/${env_to_sync}/hieradata":
+  source  => "${tmp_dir}/hieradata/${hiera_dir}"
 }
