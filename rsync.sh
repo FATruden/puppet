@@ -25,7 +25,3 @@ $USR_DST:/etc/puppetlabs/code/environments/production/modules/
 $RSYNC -zrvc --delete \
 manifests \
 $USR_DST:/etc/puppetlabs/code/environments/production/
-
-$RSYNC -zrvc --delete \
-sync_env.pp \
-$USR_DST:/etc/puppetlabs/code/
