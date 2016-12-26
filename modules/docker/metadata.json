@@ -1,0 +1,20 @@
+{
+  "name": "c2-docker",
+  "version": "0.1",
+  "author": "Aleksandr Rudenko",
+  "summary": "Module for installing and managing docker daemon and docker containers",
+  "license": "GPL2",
+  "source": "https://ghe.cloud.croc.ru/c2/puppet/tree/master/modules/docker",
+  "dependencies": ["puppetlabs-stdlib"],
+  "data_provider": null,
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": ["7"]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": ["7"]
+    }
+    ]
+}
