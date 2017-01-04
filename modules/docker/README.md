@@ -43,6 +43,15 @@ docker::run {'containet_name':
 
 from hiera:
 
+Configure the docker daemon(it's optional):
+
+```
+docker::volume: '/dev/dev_name'
+docker::storage_driver: 'overlay|btrfs'
+```
+
+run containers:
+
 ```
 docker::run_instance::instance:
   test1:
