@@ -6,7 +6,11 @@ class docker::config {
     $daemon_json = @(EOF)
     {
       "storage-driver": "<%= $::docker::storage_driver %>",
-      "storage-opts": []
+      "storage-opts": [],
+      "hosts": [
+        "tcp://0.0.0.0:2375",
+        "unix:///var/run/docker.sock"
+      ]
     }
     | EOF
 
