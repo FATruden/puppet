@@ -1,10 +1,11 @@
-```
-pkgs_base:
-  xxxx:    {ensure: present}
-  yyyyyyy: {ensure: absent}
-```
+# Manage any standalone packages
+
+## in any.yaml
 
 ```
-pkgs_additions:
-  xxxx: {ensure: present}
+packages::list:
+  xxx: {ensure: present}
+  yyy: {ensure: absent}
 ```
+
+if ``:merge_behavior: deeper` all found hashes will be merged in accordance with the priority.

@@ -1,4 +1,11 @@
+# == Class: packages
+#
 class packages {
-  include packages::base
-  include packages::additions
+
+  # deeper merge. Only work with hiera_hash(
+  $list = hiera_hash('packages::list', {})
+
+  if ! empty($list) {
+    create_resources(package, $list, {})
+  }
 }
