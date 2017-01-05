@@ -1,33 +1,23 @@
-```
-repos_base:
-  base:
-    descr: base
-    mirrorlist: 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os&infra=$infra'
-    priority: 50
-  updates:
-    descr: updates
-    mirrorlist: 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates&infra=$infra'
-    priority: 50
-  extras:
-    descr: extras
-    mirrorlist: 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras&infra=$infra'
-    priority: 51
-  epel:
-    descr: epel
-    mirrorlist: 'https://mirrors.fedoraproject.org/metalink?repo=epel-$releasever&arch=$basearch'
-  puppet:
-    descr:   puppet
-    baseurl: 'http://yum.puppetlabs.com/el/$releasever/PC1/$basearch'
-    enabled: 0
-  puppet-source:
-    descr:    puppet-source
-    baseurl: 'http://yum.puppetlabs.com/el/$releasever/PC1/SRPMS'
-    enabled: 0
-```
+# Manage yum repos
+
+## in any.yaml
 
 ```
-repos_additional:
-  xxxxx:
-    descr: xxxxx
-    baseurl: 'https://xxxx'
+repos::default:
+  gpgcheck: 0
+  enabled:  1
+  mirrorlist_expire: 7200
+  failovermethod:    priority
+
+repos::list:
+  name1:
+    descr: name-1
+    mirrorlist: 'http://url/?release=$releasever&arch=$basearch&repo=os&infra=$infra'
+    priority: 50
+  name2:
+    descr: name-2
+    mirrorlist: 'http://url/?release=$releasever&arch=$basearch&repo=updates&infra=$infra'
+    priority: 51
 ```
+
+if `:merge_behavior: deeper` all found hashes will be merged in accordance with the priority.
