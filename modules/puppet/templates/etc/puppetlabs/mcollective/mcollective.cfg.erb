@@ -1,0 +1,27 @@
+main_collective = mcollective
+collectives = mcollective
+
+# plugins dir
+libdir = /usr/libexec/mcollective
+
+logfile = /var/log/puppetlabs/mcollective.log
+loglevel = info
+daemonize = 1
+
+# Plugins
+securityprovider = psk
+plugin.psk = unset
+
+connector = <%= @middleware['connector'] %>
+plugin.rabbitmq.vhost = /<%= @middleware['vhost'] %>
+plugin.rabbitmq.pool.size = 1
+plugin.rabbitmq.pool.1.host = <%= @middleware['host'] %>
+plugin.rabbitmq.pool.1.port = 61613
+plugin.rabbitmq.pool.1.user = <%= @middleware['user'] %>
+plugin.rabbitmq.pool.1.password = <%= @middleware['password'] %>
+plugin.rabbitmq.use_reply_exchange = true
+plugin.rabbitmq.pool.1.ssl = 0
+
+# Facts
+factsource = yaml
+plugin.yaml = /etc/puppetlabs/mcollective/facts.yaml

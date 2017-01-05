@@ -1,6 +1,8 @@
+# == Class: puppet::symlinks
+#
 class puppet::symlinks {
 
-  if ( $::facts['is_puppetserver'] == "true" ) {
+  if $::puppet::server {
 
     File {
       ensure => 'link'
@@ -10,24 +12,16 @@ class puppet::symlinks {
       ensure => 'directory',
     }
 
-    file { '/etc/ppl/puppet':
-      target => '/etc/puppetlabs/puppet',
-    }
-
-    file { '/etc/ppl/puppetdb':
-      target => '/etc/puppetlabs/puppetdb',
-    }
-
-    file { '/etc/ppl/puppetserver':
-      target => '/etc/puppetlabs/puppetserver',
-    }
-
     file { '/etc/ppl/hieradata':
-      target => '/etc/puppetlabs/code/hieradata',
+      target => '/var/lib/docker/data/puppetserver/hieradata',
     }
 
     file { '/etc/ppl/env':
-      target => '/etc/puppetlabs/code/environments',
+      target => '/var/lib/docker/data/puppetserver/environments',
+    }
+
+    file { '/etc/ppl/ssl':
+      target => '/var/lib/docker/data/puppetserver/ssl',
     }
   }
 }
