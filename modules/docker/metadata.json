@@ -1,20 +1,43 @@
 {
-  "name": "c2-docker",
+  "name": "fatruden-chrony",
   "version": "0.1",
   "author": "Aleksandr Rudenko",
-  "summary": "Module for installing and managing docker daemon and docker containers",
+  "summary": "Module for installing and managing docker and docker containers",
   "license": "GPL2",
   "source": "https://ghe.cloud.croc.ru/c2/puppet/tree/master/modules/docker",
-  "dependencies": ["puppetlabs-stdlib"],
+  "dependencies": [
+    {"name":"puppetlabs/stdlib","version_requirement":">= 4.1.0"}
+  ],
   "data_provider": null,
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
-      "operatingsystemrelease": ["7"],
+      "operatingsystemrelease": [
+        "7"
+      ]
     },
     {
       "operatingsystem": "CentOS",
-      "operatingsystemrelease": ["7"],
+      "operatingsystemrelease": [
+        "7"
+      ]
     },
-    ]
+    {
+      "operatingsystem": "Fedora",
+      "operatingsystemrelease": [
+        "21"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": ">= 3.7.0"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": ">= 3.4.0"
+    }
+  ]
 }
+
